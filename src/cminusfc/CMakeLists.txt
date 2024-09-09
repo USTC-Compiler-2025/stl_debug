@@ -10,7 +10,6 @@ target_link_libraries(
     common
     syntax
     codegen
-    stdc++fs
     opt_lib
 )
 
