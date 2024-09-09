@@ -32,6 +32,7 @@ class Value {
 
   private:
     Type *type_;
+    // TODO:
     std::list<Use> use_list_; // who use this value
     std::string name_;        // should we put name field here ?
 };

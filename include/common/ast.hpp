@@ -49,6 +49,7 @@ struct ASTNum;
 struct ASTVarDeclaration;
 struct ASTFunDeclaration;
 struct ASTParam;
+
 struct ASTCompoundStmt;
 struct ASTStatement;
 struct ASTExpressionStmt;
