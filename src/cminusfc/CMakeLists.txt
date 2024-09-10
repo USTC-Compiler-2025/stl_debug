@@ -1,16 +1,12 @@
 add_executable(
     cminusfc
-    cminusfc.cpp
-    cminusf_builder.cpp
+    main.cpp
 )
 
 target_link_libraries(
     cminusfc
-    IR_lib
     common
     syntax
-    codegen
-    opt_lib
 )
 
 install(

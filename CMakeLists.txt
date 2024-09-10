@@ -39,8 +39,6 @@ INCLUDE_DIRECTORIES(
     include/cminusfc
     include/common
     include/lightir
-    include/codegen
-    include/passes/
     ${LLVM_INCLUDE_DIRS}
 )
 
@@ -53,4 +51,3 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_BINARY_DIR})
 add_subdirectory(src)
-add_subdirectory(tests)

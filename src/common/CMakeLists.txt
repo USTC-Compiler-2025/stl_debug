@@ -1,6 +1,6 @@
 add_library(common STATIC
     syntax_tree.c
-    ast.cpp
+    ast_todo.cpp
     logging.cpp
 )
 
