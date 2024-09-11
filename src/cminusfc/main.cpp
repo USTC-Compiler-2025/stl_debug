@@ -1,9 +1,7 @@
 #include "ast.hpp"
 
 #include <filesystem>
-#include <fstream>
 #include <iostream>
-#include <memory>
 #include <string>
 
 using std::string;
@@ -37,7 +35,6 @@ private:
 int main(int argc, char **argv)
 {
     Config config(argc, argv);
-
     auto syntax_tree = parse(config.input_file.c_str());
     auto ast = AST(syntax_tree);
     ASTPrinter printer;

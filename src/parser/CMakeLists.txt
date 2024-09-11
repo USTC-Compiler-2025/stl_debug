@@ -1,5 +1,5 @@
-flex_target(lex lexical_analyzer.l ${CMAKE_CURRENT_BINARY_DIR}/lexical_analyzer.c)
-bison_target(syntax syntax_analyzer.y
+flex_target(lex lexical_analyzer_todo.l ${CMAKE_CURRENT_BINARY_DIR}/lexical_analyzer.c)
+bison_target(syntax syntax_analyzer_todo.y
   ${CMAKE_CURRENT_BINARY_DIR}/syntax_analyzer.c
   DEFINES_FILE ${PROJECT_BINARY_DIR}/syntax_analyzer.h)
 
