@@ -35,7 +35,7 @@ ASTNode *AST::transform_node_iter(syntax_tree_node *n) {
   if (_STR_EQ(n->name, "program")) {
     auto node = new ASTProgram();
     // flatten declaration list
-    std::stack<syntax_tree_node *> 
+    std::stack<syntax_tree_node *>
         s; // 为什么这里要用stack呢？如果用其他数据结构应该如何实现
     auto list_ptr = n->children[0];
     while (list_ptr->children_num == 2) {
@@ -101,13 +101,12 @@ ASTNode *AST::transform_node_iter(syntax_tree_node *n) {
         注意这里的params是一个列表，每个元素都是一个ASTParam，需要flatten
         params -> param-list | void
         param-list -> param-list , param | param
-
     */
     // TODO: 1.fill in the fields of ASTFunDeclaration
     // 1.1 flatten params
-    
+
     // 1.2 compound_stmt 字段填充
-    
+
     return node;
   } else if (_STR_EQ(n->name, "param")) {
     // param -> type-specifier ID | type-specifier ID [ ]
@@ -125,17 +124,18 @@ ASTNode *AST::transform_node_iter(syntax_tree_node *n) {
   } else if (_STR_EQ(n->name, "compound-stmt")) {
     auto node = new ASTCompoundStmt();
     // TODO: 2.fill in the fields of ASTCompoundStmt
+    /*
+      文法表达式如下
+      compound-stmt -> { local-declarations statement-list }
+      local-declarations -> local-declarations var-declaration | empty
+      statement-list -> statement-list statement | empty
+    */
     // local declarations
-    if (n->children[1]->children_num == 2) {
-      // 2.1 flatten local declarations
-      
-    }
+    // 2.1 flatten local declarations
 
     // statement list
-    if (n->children[2]->children_num == 2) {
-      // 2.2 flatten statement-list
-      
-    }
+    // 2.2 flatten statement-list
+
     return node;
   } else if (_STR_EQ(n->name, "statement")) {
     return transform_node_iter(n->children[0]);
@@ -241,14 +241,17 @@ ASTNode *AST::transform_node_iter(syntax_tree_node *n) {
     return node;
   } else if (_STR_EQ(n->name, "additive-expression")) {
     auto node = new ASTAdditiveExpression();
-    if(n->children_num == 3) {
+    if (n->children_num == 3) {
       // TODO: 4.fill in the fields of ASTAdditiveExpression
+      /*
+        文法表达式如下
+        additive-expression -> additive-expression addop term | term 
+      */
       // additive_expression, term, op
-      
-    }
-    else {
-      auto term_node = 
-        static_cast<ASTTerm *>(transform_node_iter(n->children[0]));
+
+    } else {
+      auto term_node =
+          static_cast<ASTTerm *>(transform_node_iter(n->children[0]));
       node->term = std::shared_ptr<ASTTerm>(term_node);
     }
     return node;
@@ -285,9 +288,15 @@ ASTNode *AST::transform_node_iter(syntax_tree_node *n) {
     else {
       auto num_node = new ASTNum();
       // TODO: 3.fill in the fields of ASTNum
+      /*
+        文法表达式如下
+        factor -> ( expression ) | var | call | integer | float
+        float -> FLOATPOINT
+        integer -> INTEGER
+      */
       if (_STR_EQ(name, "integer")) {
         // 3.1
-        
+
       } else if (_STR_EQ(name, "float")) {
         // 3.2
 
