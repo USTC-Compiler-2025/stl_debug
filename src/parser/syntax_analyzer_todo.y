@@ -78,11 +78,6 @@ syntax_tree_node *node(const char *node_name, int children_num, ...);
 %%
 /* TODO: Your rules here. */
 
-/* Example:
-program: declaration-list {$$ = node( "program", 1, $1); gt->root = $$;}
-       ;
-*/
-
 program : 	declaration-list {$$ = node( "program", 1, $1); gt->root = $$;}
 		;
 
