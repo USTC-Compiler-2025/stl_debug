@@ -28,16 +28,51 @@ void yyerror(const char *s);
 syntax_tree_node *node(const char *node_name, int children_num, ...);
 %}
 
-/* TODO: Complete this definition.
+/* Complete this definition.
    Hint: See pass_node(), node(), and syntax_tree.h.
          Use forward declaring. */
-%union {}
+%union {
+     struct _syntax_tree_node * node;
+	 char * name;
+}
 
-/* TODO: Your tokens here. */
+/* Your tokens here. */
 %token <node> ERROR
 %token <node> ADD
-%type <node> program
+%token <node> SUB
+%token <node> MUL
+%token <node> DIV
+%token <node> LT
+%token <node> LTE
+%token <node> GT
+%token <node> GTE
+%token <node> EQ
+%token <node> NEQ
+%token <node> ASSIN
+%token <node> SEMICOLON
+%token <node> COMMA
+%token <node> LPARENTHESE
+%token <node> RPARENTHESE
+%token <node> LBRACKET
+%token <node> RBRACKET
+%token <node> LBRACE
+%token <node> RBRACE
+%token <node> ELSE
+%token <node> IF
+%token <node> INT
+%token <node> RETURN
+%token <node> VOID
+%token <node> WHILE
+%token <node> IDENTIFIER
+%token <node> INTEGER
+%token <node> FLOAT
+%token <node> FLOATPOINT	// 这个是 float 类型的 token
+//%token <node> EOL
+//%token <node> BLANK
+//%token <node> COMMENT
+%type <node> program declaration-list declaration var-declaration type-specifier fun-declaration params param-list param compound-stmt local-declarations statement-list statement expression-stmt selection-stmt iteration-stmt return-stmt expression var simple-expression relop additive-expression addop term mulop factor integer float call args arg-list
 
+/* compulsory starting symbol */
 %start program
 
 %%
@@ -48,7 +83,52 @@ program: declaration-list {$$ = node( "program", 1, $1); gt->root = $$;}
        ;
 */
 
-program : ;
+program : 	declaration-list {$$ = node( "program", 1, $1); gt->root = $$;}
+		;
+
+declaration-list 	: 	declaration-list declaration {$$ = node( "declaration-list", 2, $1, $2);}
+					|	declaration {$$ = node( "declaration-list", 1, $1);}
+					;
+
+declaration : 	var-declaration {$$ = node( "declaration", 1, $1);}
+			| 	fun-declaration {$$ = node( "declaration", 1, $1);}
+			;
+
+var-declaration : 	type-specifier IDENTIFIER SEMICOLON {$$ = node( "var-declaration", 3, $1, $2, $3);}
+                | 	type-specifier IDENTIFIER LBRACKET INTEGER RBRACKET SEMICOLON {$$ = node( "var-declaration", 6, $1, $2, $3, $4, $5, $6);}
+                ;
+
+type-specifier 	: 	INT {$$ = node( "type-specifier", 1, $1);}
+				| 	FLOAT { $$ = node( "type-specifier", 1, $1); }
+				| 	VOID {$$ = node( "type-specifier", 1, $1);}
+				;
+
+fun-declaration : 	type-specifier IDENTIFIER LPARENTHESE params RPARENTHESE compound-stmt {$$ = node( "fun-declaration", 6, $1, $2, $3, $4, $5, $6);}
+				;
+
+params 	: 	param-list {$$ = node( "params", 1, $1);}
+		|	VOID {$$ = node( "params", 1, $1);}
+		;
+
+param-list 	: 	param-list COMMA param {$$ = node( "param-list", 3, $1, $2, $3);}
+			| 	param {$$ = node( "param-list", 1, $1);}
+			;
+
+param 	: 	type-specifier IDENTIFIER {$$ = node( "param", 2, $1, $2);}
+		| 	type-specifier IDENTIFIER LBRACKET RBRACKET {$$ = node( "param", 4, $1, $2, $3, $4);}
+		;
+
+compound-stmt 	: 	LBRACE local-declarations statement-list RBRACE {$$ = node( "compound-stmt", 4, $1, $2, $3, $4);}
+				;
+
+local-declarations 	: 	local-declarations var-declaration {$$ = node( "local-declarations", 2, $1, $2);}
+| 	{$$ = node( "local-declarations",0);}
+					;
+
+statement-list 	: 	statement-list statement {$$ = node( "statement-list", 2, $1, $2);}
+| 	{$$ = node( "statement-list",0);}
+
+// TODO: 补充其他的文法产生式逻辑
 
 %%
 

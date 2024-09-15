@@ -19,11 +19,27 @@ void pass_node(char *text){
 
 %}
 
+%x COMMENT
 
 %%
  /* to do for students */
  /* two cases for you, pass_node will send flex's token to bison */
 \+ 	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return ADD;}
+\-	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return SUB;}
+\*	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return MUL;}
+\/	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return DIV;}
+\<	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return LT;}
+\<=	{pos_start = pos_end; pos_end += 2; pass_node(yytext); return LTE;}
+\>	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return GT;}
+\>=	{pos_start = pos_end; pos_end += 2; pass_node(yytext); return GTE;}
+==	{pos_start = pos_end; pos_end += 2; pass_node(yytext); return EQ;}
+!=	{pos_start = pos_end; pos_end += 2; pass_node(yytext); return NEQ;}
+=	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return ASSIN;}
+;	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return SEMICOLON;}
+,	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return COMMA;}
+ /* 补充其他的词法规则 */
+
+
 . { pos_start = pos_end; pos_end++; return ERROR; }
 
  /****请在此补全所有flex的模式与动作  end******/
