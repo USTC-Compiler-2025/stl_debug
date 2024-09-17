@@ -37,7 +37,7 @@ void pass_node(char *text){
 =	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return ASSIN;}
 ;	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return SEMICOLON;}
 ,	{pos_start = pos_end; pos_end += 1; pass_node(yytext); return COMMA;}
- /* 补充其他的词法规则 */
+ /* TODO: phase1. 请在这里补充其他的词法规则 */
 
 
 . { pos_start = pos_end; pos_end++; return ERROR; }

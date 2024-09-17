@@ -76,7 +76,7 @@ syntax_tree_node *node(const char *node_name, int children_num, ...);
 %start program
 
 %%
-/* TODO: Your rules here. */
+/* Your rules here. TA has completed many */
 
 program : 	declaration-list {$$ = node( "program", 1, $1); gt->root = $$;}
 		;
@@ -123,7 +123,7 @@ local-declarations 	: 	local-declarations var-declaration {$$ = node( "local-dec
 statement-list 	: 	statement-list statement {$$ = node( "statement-list", 2, $1, $2);}
 | 	{$$ = node( "statement-list",0);}
 
-// TODO: 补充其他的文法产生式逻辑
+// TODO: phase1. 补充其他的文法产生式逻辑
 
 %%
 
